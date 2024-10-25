@@ -1,0 +1,635 @@
+rules: []
+rulesConfigs: []
+pages: []
+resourceServers:
+  - name: IoT API
+    identifier: IoTAPI
+    allow_offline_access: false
+    scopes:
+      - value: write:watertemperature
+        description: To write in the Platform the temperature of the sensor
+    signing_alg: RS256
+    skip_consent_for_verifiable_first_party_clients: true
+    token_dialect: access_token
+    token_lifetime: 86400
+    token_lifetime_for_web: 7200
+clients:
+  - name: API Explorer Application
+    app_type: non_interactive
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
+      - client_credentials
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    oidc_conformant: true
+    refresh_token:
+      expiration_type: non-expiring
+      leeway: 0
+      infinite_token_lifetime: true
+      infinite_idle_token_lifetime: true
+      token_lifetime: 31557600
+      idle_token_lifetime: 2592000
+      rotation_type: non-rotating
+    sso_disabled: false
+    token_endpoint_auth_method: client_secret_post
+  - name: EcommerceApp
+    allowed_clients: []
+    app_type: regular_web
+    callbacks:
+      - https://oauth.pstmn.io/v1/browser-callback
+    client_aliases: []
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
+      - authorization_code
+      - implicit
+      - refresh_token
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    native_social_login:
+      apple:
+        enabled: false
+      facebook:
+        enabled: false
+    oidc_conformant: true
+    organization_require_behavior: post_login_prompt
+    organization_usage: allow
+    refresh_token:
+      expiration_type: non-expiring
+      leeway: 0
+      infinite_token_lifetime: true
+      infinite_idle_token_lifetime: true
+      token_lifetime: 31557600
+      idle_token_lifetime: 2592000
+      rotation_type: non-rotating
+    sso_disabled: false
+    token_endpoint_auth_method: client_secret_post
+  - name: FormsandCLIApp
+    allowed_clients: []
+    app_type: non_interactive
+    callbacks: []
+    client_aliases: []
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
+      - client_credentials
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    native_social_login:
+      apple:
+        enabled: false
+      facebook:
+        enabled: false
+    oidc_conformant: true
+    refresh_token:
+      expiration_type: non-expiring
+      leeway: 0
+      infinite_token_lifetime: true
+      infinite_idle_token_lifetime: true
+      token_lifetime: 31557600
+      idle_token_lifetime: 2592000
+      rotation_type: non-rotating
+    sso_disabled: false
+    token_endpoint_auth_method: client_secret_post
+  - name: IoT Device Application
+    allowed_clients: []
+    app_type: non_interactive
+    callbacks: []
+    client_aliases: []
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
+      - client_credentials
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    native_social_login:
+      apple:
+        enabled: false
+      facebook:
+        enabled: false
+    oidc_conformant: true
+    refresh_token:
+      expiration_type: non-expiring
+      leeway: 0
+      infinite_token_lifetime: true
+      infinite_idle_token_lifetime: true
+      token_lifetime: 31557600
+      idle_token_lifetime: 2592000
+      rotation_type: non-rotating
+    sso_disabled: false
+    token_endpoint_auth_method: client_secret_post
+  - name: IoTPlatform
+    allowed_clients: []
+    app_type: regular_web
+    callbacks:
+      - https://oauth.pstmn.io/v1/browser-callback
+    client_aliases: []
+    cross_origin_auth: false
+    custom_login_page_on: true
+    grant_types:
+      - authorization_code
+    is_first_party: true
+    is_token_endpoint_ip_header_trusted: false
+    jwt_configuration:
+      alg: RS256
+      lifetime_in_seconds: 36000
+      secret_encoded: false
+    native_social_login:
+      apple:
+        enabled: false
+      facebook:
+        enabled: false
+    oidc_conformant: true
+    organization_require_behavior: post_login_prompt
+    organization_usage: allow
+    refresh_token:
+      expiration_type: non-expiring
+      leeway: 0
+      infinite_token_lifetime: true
+      infinite_idle_token_lifetime: true
+      token_lifetime: 31557600
+      idle_token_lifetime: 2592000
+      rotation_type: non-rotating
+    sso_disabled: false
+    token_endpoint_auth_method: client_secret_post
+databases:
+  - name: Username-Password-Authentication
+    strategy: auth0
+    enabled_clients:
+      - API Explorer Application
+      - EcommerceApp
+      - FormsandCLIApp
+      - IoT Device Application
+      - IoTPlatform
+    is_domain_connection: false
+    options:
+      mfa:
+        active: true
+        return_enroll_settings: true
+      attributes:
+        email:
+          signup:
+            status: required
+            verification:
+              active: true
+          identifier:
+            active: true
+          profile_required: true
+          verification_method: link
+      import_mode: false
+      customScripts:
+        change_password: ./databases/Username-Password-Authentication/change_password.js
+        create: ./databases/Username-Password-Authentication/create.js
+        delete: ./databases/Username-Password-Authentication/delete.js
+        get_user: ./databases/Username-Password-Authentication/get_user.js
+        login: ./databases/Username-Password-Authentication/login.js
+        verify: ./databases/Username-Password-Authentication/verify.js
+      passwordPolicy: good
+      passkey_options:
+        challenge_ui: both
+        local_enrollment_enabled: true
+        progressive_enrollment_enabled: true
+      password_history:
+        size: 5
+        enable: false
+      strategy_version: 2
+      password_dictionary:
+        enable: false
+        dictionary: []
+      authentication_methods:
+        passkey:
+          enabled: true
+        password:
+          enabled: true
+      brute_force_protection: true
+      password_no_personal_info:
+        enable: false
+      password_complexity_options:
+        min_length: 8
+      enabledDatabaseCustomization: false
+    realms:
+      - Username-Password-Authentication
+connections:
+  - name: email
+    strategy: email
+    enabled_clients:
+      - API Explorer Application
+      - EcommerceApp
+      - FormsandCLIApp
+      - IoT Device Application
+      - IoTPlatform
+    is_domain_connection: false
+    options:
+      name: email
+      totp:
+        length: 6
+        time_step: 180
+      email:
+        body: ./email.html
+        from: '{{ application.name }} <root@auth0.com>'
+        syntax: liquid
+        subject: Welcome to {{ application.name }}
+      disable_signup: false
+      brute_force_protection: true
+  - name: google-oauth2
+    strategy: google-oauth2
+    enabled_clients:
+      - API Explorer Application
+      - EcommerceApp
+      - FormsandCLIApp
+      - IoT Device Application
+      - IoTPlatform
+    is_domain_connection: false
+    options:
+      email: true
+      gmail: false
+      orkut: false
+      scope:
+        - email
+        - profile
+      sites: false
+      tasks: false
+      blogger: false
+      profile: true
+      youtube: false
+      calendar: false
+      contacts: false
+      analytics: false
+      client_id: ''
+      moderator: false
+      coordinate: false
+      picasa_web: false
+      google_plus: false
+      google_books: false
+      google_drive: false
+      spreadsheets: false
+      document_list: false
+      latitude_best: false
+      latitude_city: false
+      url_shortener: false
+      webmaster_tools: false
+      chrome_web_store: false
+      allowed_audiences: ''
+      adsense_management: false
+      google_drive_files: false
+      coordinate_readonly: false
+      google_cloud_storage: false
+      content_api_for_shopping: false
+      google_affiliate_network: false
+tenant:
+  enabled_locales:
+    - en
+  flags:
+    revoke_refresh_token_grant: false
+    disable_clickjack_protection_headers: false
+  friendly_name: ciamtraining
+  oidc_logout:
+    rp_logout_end_session_endpoint_discovery: true
+  picture_url: ''
+  sandbox_version: '18'
+  support_email: ''
+  support_url: ''
+  universal_login: {}
+emailProvider: {}
+emailTemplates: []
+clientGrants:
+  - client_id: API Explorer Application
+    audience: https://dev-3zhju2aa2u1pr5f6.us.auth0.com/api/v2/
+    scope:
+      - read:client_grants
+      - create:client_grants
+      - delete:client_grants
+      - update:client_grants
+      - read:users
+      - update:users
+      - delete:users
+      - create:users
+      - read:users_app_metadata
+      - update:users_app_metadata
+      - delete:users_app_metadata
+      - create:users_app_metadata
+      - read:user_custom_blocks
+      - create:user_custom_blocks
+      - delete:user_custom_blocks
+      - create:user_tickets
+      - read:clients
+      - update:clients
+      - delete:clients
+      - create:clients
+      - read:client_keys
+      - update:client_keys
+      - delete:client_keys
+      - create:client_keys
+      - read:connections
+      - update:connections
+      - delete:connections
+      - create:connections
+      - read:resource_servers
+      - update:resource_servers
+      - delete:resource_servers
+      - create:resource_servers
+      - read:device_credentials
+      - update:device_credentials
+      - delete:device_credentials
+      - create:device_credentials
+      - read:rules
+      - update:rules
+      - delete:rules
+      - create:rules
+      - read:rules_configs
+      - update:rules_configs
+      - delete:rules_configs
+      - read:hooks
+      - update:hooks
+      - delete:hooks
+      - create:hooks
+      - read:actions
+      - update:actions
+      - delete:actions
+      - create:actions
+      - read:email_provider
+      - update:email_provider
+      - delete:email_provider
+      - create:email_provider
+      - blacklist:tokens
+      - read:stats
+      - read:insights
+      - read:tenant_settings
+      - update:tenant_settings
+      - read:logs
+      - read:logs_users
+      - read:shields
+      - create:shields
+      - update:shields
+      - delete:shields
+      - read:anomaly_blocks
+      - delete:anomaly_blocks
+      - update:triggers
+      - read:triggers
+      - read:grants
+      - delete:grants
+      - read:guardian_factors
+      - update:guardian_factors
+      - read:guardian_enrollments
+      - delete:guardian_enrollments
+      - create:guardian_enrollment_tickets
+      - read:user_idp_tokens
+      - create:passwords_checking_job
+      - delete:passwords_checking_job
+      - read:custom_domains
+      - delete:custom_domains
+      - create:custom_domains
+      - update:custom_domains
+      - read:email_templates
+      - create:email_templates
+      - update:email_templates
+      - read:mfa_policies
+      - update:mfa_policies
+      - read:roles
+      - create:roles
+      - delete:roles
+      - update:roles
+      - read:prompts
+      - update:prompts
+      - read:branding
+      - update:branding
+      - delete:branding
+      - read:log_streams
+      - create:log_streams
+      - delete:log_streams
+      - update:log_streams
+      - create:signing_keys
+      - read:signing_keys
+      - update:signing_keys
+      - read:limits
+      - update:limits
+      - create:role_members
+      - read:role_members
+      - delete:role_members
+      - read:entitlements
+      - read:attack_protection
+      - update:attack_protection
+      - read:organizations_summary
+      - create:authentication_methods
+      - read:authentication_methods
+      - update:authentication_methods
+      - delete:authentication_methods
+      - read:organizations
+      - update:organizations
+      - create:organizations
+      - delete:organizations
+      - create:organization_members
+      - read:organization_members
+      - delete:organization_members
+      - create:organization_connections
+      - read:organization_connections
+      - update:organization_connections
+      - delete:organization_connections
+      - create:organization_member_roles
+      - read:organization_member_roles
+      - delete:organization_member_roles
+      - create:organization_invitations
+      - read:organization_invitations
+      - delete:organization_invitations
+      - read:scim_config
+      - create:scim_config
+      - update:scim_config
+      - delete:scim_config
+      - create:scim_token
+      - read:scim_token
+      - delete:scim_token
+      - delete:phone_providers
+      - create:phone_providers
+      - read:phone_providers
+      - update:phone_providers
+      - delete:phone_templates
+      - create:phone_templates
+      - read:phone_templates
+      - update:phone_templates
+      - create:encryption_keys
+      - read:encryption_keys
+      - update:encryption_keys
+      - delete:encryption_keys
+      - read:sessions
+      - delete:sessions
+      - read:refresh_tokens
+      - delete:refresh_tokens
+      - create:self_service_profiles
+      - read:self_service_profiles
+      - update:self_service_profiles
+      - delete:self_service_profiles
+      - create:sso_access_tickets
+      - read:forms
+      - update:forms
+      - delete:forms
+      - create:forms
+      - read:flows
+      - update:flows
+      - delete:flows
+      - create:flows
+      - read:flows_vault
+      - read:flows_vault_connections
+      - update:flows_vault_connections
+      - delete:flows_vault_connections
+      - create:flows_vault_connections
+      - read:flows_executions
+      - delete:flows_executions
+      - read:connections_options
+      - update:connections_options
+      - read:self_service_profile_custom_texts
+      - update:self_service_profile_custom_texts
+      - read:client_credentials
+      - create:client_credentials
+      - update:client_credentials
+      - delete:client_credentials
+  - client_id: IoT Device Application
+    audience: IoTAPI
+    scope:
+      - write:watertemperature
+guardianFactors:
+  - name: duo
+    enabled: false
+  - name: email
+    enabled: false
+  - name: otp
+    enabled: true
+  - name: push-notification
+    enabled: false
+  - name: recovery-code
+    enabled: false
+  - name: sms
+    enabled: false
+  - name: webauthn-platform
+    enabled: false
+  - name: webauthn-roaming
+    enabled: false
+guardianFactorProviders: []
+guardianFactorTemplates: []
+guardianPolicies:
+  policies: []
+guardianPhoneFactorSelectedProvider:
+  provider: auth0
+guardianPhoneFactorMessageTypes:
+  message_types: []
+roles:
+  - name: admin
+    description: to control and manage the entire platform
+    permissions: []
+  - name: maintenance
+    description: To read sensor values
+    permissions: []
+branding:
+  logo_url: ''
+  templates: []
+prompts:
+  customText: {}
+  identifier_first: true
+  partials: {}
+  universal_login_experience: new
+  webauthn_platform_first_factor: false
+actions:
+  - name: action_addingCustomClaim
+    code: ./actions/action_addingCustomClaim/code.js
+    dependencies: []
+    deployed: true
+    runtime: node18-actions
+    secrets: []
+    status: built
+    supported_triggers:
+      - id: post-login
+        version: v3
+  - name: action_progressiveProfiling
+    code: ./actions/action_progressiveProfiling/code.js
+    dependencies: []
+    deployed: true
+    runtime: node18-actions
+    secrets:
+      - name: formId
+    status: built
+    supported_triggers:
+      - id: post-login
+        version: v3
+triggers:
+  post-login:
+    - action_name: action_addingCustomClaim
+      display_name: action_addingCustomClaim
+    - action_name: action_progressiveProfiling
+      display_name: action_progressiveProfiling
+organizations:
+  - name: organization-client-a
+    connections:
+      - name: Username-Password-Authentication
+        assign_membership_on_login: false
+        is_signup_enabled: false
+        show_as_button: true
+      - name: email
+        assign_membership_on_login: false
+        show_as_button: true
+      - name: google-oauth2
+        assign_membership_on_login: false
+        show_as_button: true
+    display_name: Client A
+  - name: organization-client-b
+    connections:
+      - name: Username-Password-Authentication
+        assign_membership_on_login: false
+        is_signup_enabled: false
+        show_as_button: true
+      - name: email
+        assign_membership_on_login: false
+        show_as_button: true
+      - name: google-oauth2
+        assign_membership_on_login: false
+        show_as_button: true
+    display_name: Client B
+attackProtection:
+  breachedPasswordDetection:
+    enabled: true
+    shields:
+      - user_notification
+    admin_notification_frequency: []
+    method: standard
+    stage:
+      pre-user-registration:
+        shields: []
+  bruteForceProtection:
+    enabled: true
+    shields:
+      - block
+      - user_notification
+    mode: count_per_identifier_and_ip
+    allowlist: []
+    max_attempts: 10
+  suspiciousIpThrottling:
+    enabled: true
+    shields:
+      - admin_notification
+      - block
+    allowlist: []
+    stage:
+      pre-login:
+        max_attempts: 100
+        rate: 864000
+      pre-user-registration:
+        max_attempts: 50
+        rate: 1200
+logStreams: []
+customDomains: []
+themes: []
